@@ -1,0 +1,508 @@
+/* =========================
+   Base / Reset
+========================= */
+* { box-sizing: border-box; }
+html:focus-within { scroll-behavior: smooth; }
+body{
+  margin:0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.55;
+  color:#0b1220;
+  background:#fff;
+}
+img{ max-width:100%; display:block; }
+a{ color:inherit; text-decoration:none; }
+
+.container{
+  width:min(1120px, 100% - 2rem);
+  margin-inline:auto;
+}
+
+.skip-link{
+  position:absolute; left:-999px; top:.75rem;
+  background:#fff; color:#0b1220;
+  padding:.75rem 1rem; border-radius:.75rem;
+  z-index:9999;
+}
+.skip-link:focus{ left:1rem; }
+
+/* =========================
+   Header
+========================= */
+.site-header{
+  position:sticky; top:0; z-index:60;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(10px);
+  border-bottom:1px solid rgba(11,18,32,.08);
+}
+.header-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:.9rem 0;
+  gap:1rem;
+}
+.brand{
+  display:grid; gap:.1rem;
+  font-weight:900;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  line-height:1.05;
+}
+.brand-title{ font-size:1rem; }
+.nav{
+  display:flex; gap:.5rem;
+  overflow:auto;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-close{ display:none; }
+
+/* Backdrop (se activa solo en móvil cuando el menú está abierto) */
+.nav-backdrop{
+  display:none;
+  position: fixed;
+  inset: 0;
+  background: rgba(11,18,32,.55);
+  border: 0;
+  padding: 0;
+  margin: 0;
+  z-index: 75;
+  /* Importante: en móvil no bloqueamos el scroll del documento.
+     Si el backdrop captura los gestos, el usuario siente que "no puede subir".
+     Dejamos los gestos pasar y cerramos el menú con un listener global (pointerdown). */
+  pointer-events: none;
+}
+
+.nav-toggle{
+  display:none;
+  border: 1px solid rgba(11,18,32,.14);
+  background:#fff;
+  border-radius: .9rem;
+  padding: .6rem .8rem;
+  font-size: 1.05rem;
+  line-height:1;
+  font-weight:900;
+}
+.nav-toggle:active{ transform: translateY(1px); }
+.nav-link{
+  font-weight:700;
+  padding:.55rem .75rem;
+  border-radius:.8rem;
+  white-space:nowrap;
+  color: rgba(11,18,32,.85);
+}
+.nav-link:hover{ background: rgba(11,18,32,.06); }
+
+/* =========================
+   Sections
+========================= */
+.section{ padding: 3rem 0; }
+.kicker{
+  margin:0 0 .6rem;
+  font-size:.8rem;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color: rgba(11,18,32,.55);
+}
+.h1{
+  margin:0 0 .9rem;
+  font-size: clamp(2rem, 7vw, 3.2rem);
+  line-height:1.05;
+  letter-spacing:-0.02em;
+}
+.h2{
+  margin:0 0 .75rem;
+  font-size: clamp(1.7rem, 6vw, 2.6rem);
+  line-height:1.1;
+  letter-spacing:-0.02em;
+}
+.lead{
+  margin:0 0 1.6rem;
+  max-width: 65ch;
+  color: rgba(11,18,32,.75);
+}
+.section-head{
+  text-align:center;
+  margin-bottom: 2.2rem;
+}
+.subhead{
+  margin:0 auto;
+  max-width: 70ch;
+  color: rgba(11,18,32,.70);
+}
+
+/* =========================
+   Split: Nuestros Servicios
+========================= */
+.services-split{ background:#f6f7f9; }
+.split{
+  display:grid;
+  gap:1.5rem;
+  align-items:stretch;
+}
+.split-media img{
+  border-radius: 1.1rem;
+  /* En móvil evitamos que la imagen quede excesivamente alta */
+  width: 100%;
+  height: auto;
+  max-height: 460px;
+  object-fit: cover;
+  box-shadow: 0 14px 34px rgba(11,18,32,.10);
+}
+.split-content{
+  background:#fff;
+  border-radius: 1.1rem;
+  padding: 1.25rem;
+  border:1px solid rgba(11,18,32,.08);
+}
+.mini-grid{
+  display:grid;
+  gap:1.1rem;
+}
+.mini-title{
+  margin:0 0 .35rem;
+  font-size:1.05rem;
+  letter-spacing:-0.01em;
+}
+.mini-text{
+  margin:0;
+  color: rgba(11,18,32,.72);
+}
+
+/* =========================
+   Service tech cards
+========================= */
+.service-tech{ background:#fff; }
+.cards{
+  display:grid;
+  gap:1.2rem;
+}
+.card{
+  border:1px solid rgba(11,18,32,.10);
+  border-radius: 1.1rem;
+  padding: 1.25rem;
+  background:#fff;
+}
+.icon-ring{
+  width: 64px; height: 64px;
+  border-radius: 999px;
+  border: 2px solid #d90429;
+  display:grid; place-items:center;
+  margin-bottom: 1rem;
+}
+.icon{ font-size: 1.25rem; }
+.card-title{
+  margin:0 0 .6rem;
+  font-size:1.05rem;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+.card-text{
+  margin:0 0 1.1rem;
+  color: rgba(11,18,32,.72);
+}
+
+/* Buttons */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.95rem 1.1rem;
+  border-radius: .9rem;
+  font-weight:800;
+  border: 1px solid transparent;
+  transition: transform .12s ease, filter .12s ease, background .12s ease;
+}
+.btn:active{ transform: translateY(1px); }
+.btn-primary{
+  background:#d90429;
+  color:#fff;
+}
+.btn-primary:hover{ filter: brightness(1.06); }
+.btn-outline{
+  background: transparent;
+  border-color: rgba(255,255,255,.75);
+  color:#fff;
+}
+.btn-outline:hover{ filter: brightness(1.06); }
+
+.btn-light{
+  background:#fff;
+  color:#0b1220;
+  border-color: rgba(255,255,255,.9);
+}
+.btn-light:hover{ filter: brightness(0.97); }
+
+/* =========================
+   Hero: Servicio Especializado
+========================= */
+.hero{
+  position:relative;
+  min-height: 64vh;
+  display:grid;
+  align-items:center;
+  overflow:hidden;
+}
+.hero-bg{
+  position:absolute;
+  inset:0;
+  /* Reemplaza por tu imagen del call center */
+  background-image: url("img/hero-especializado.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.03);
+}
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background: rgba(11,18,32,.55);
+  background: url(img/banner1.png);
+}
+.hero-overlay {
+    position: absolute;
+    inset: 0;                    /* top:0; right:0; bottom:0; left:0; */
+
+    /* Imagen de fondo principal */
+    background-image: url(img/banner1.png);
+    
+    /* Evita que se repita */
+    background-repeat: no-repeat;
+    
+    /* Centra perfectamente la imagen */
+    background-position: center center;
+    
+    /* La imagen cubre todo el contenedor manteniendo proporción */
+    background-size: cover;
+    
+    /* Fallback para navegadores que no soporten múltiples fondos */
+    background-color: rgba(11, 18, 32, 0.55);
+
+    /* Versión moderna: múltiples fondos (capa oscura + imagen) */
+    background: 
+        rgba(11, 18, 32, 0.55),           /* capa oscura primero (queda arriba) */
+        url(img/banner1.png) center center / cover no-repeat;
+}
+
+/* Opcional: versión aún más controlada y recomendada 2024-2025 */
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        rgba(11, 18, 32, 0.55), 
+        rgba(11, 18, 32, 0.55)
+    ), url(img/banner1.png) center / cover no-repeat fixed;
+
+    /* fixed → hace que el fondo se comporte tipo parallax suave en desktop */
+    /* Quita "fixed" si no quieres este efecto o si tienes problemas en iOS */
+}
+#imagenServicioEspecializado{
+  position: absolute;
+    inset: 0;                    /* top:0; right:0; bottom:0; left:0; */
+
+    /* Imagen de fondo principal */
+    background-image: url(img/banner1.png);
+    
+    /* Evita que se repita */
+    background-repeat: no-repeat;
+    
+    /* Centra perfectamente la imagen */
+    background-position: center center;
+    
+    /* La imagen cubre todo el contenedor manteniendo proporción */
+    background-size: cover;
+    
+    /* Fallback para navegadores que no soporten múltiples fondos */
+    background-color: rgba(11, 18, 32, 0.55);
+
+    /* Versión moderna: múltiples fondos (capa oscura + imagen) */
+    background: 
+        rgba(11, 18, 32, 0.55),           /* capa oscura primero (queda arriba) */
+        url(img/banner1.png) center center / cover no-repeat;
+
+}
+#imagenServicioEspecializado{
+  position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        rgba(11, 18, 32, 0.55), 
+        rgba(11, 18, 32, 0.55)
+    ), url(img/servicioEspecializado.png) center / cover no-repeat fixed;
+
+    /* fixed → hace que el fondo se comporte tipo parallax suave en desktop */
+    /* Quita "fixed" si no quieres este efecto o si tienes problemas en iOS */
+
+}
+
+/* Recomendación para móviles (mejora rendimiento y evita problemas) */
+@media (max-width: 768px) {
+    .hero-overlay {
+        background-attachment: scroll;     /* fixed puede dar problemas en móviles */
+        background-size: cover;            /* mantiene cover pero sin fixed */
+        background-position: center 40%;   /* opcional: sube un poco la imagen en móvil */
+    }
+}
+.hero-inner{
+  position:relative;
+  color:#fff;
+  padding: 4rem 0;
+  text-align:center;
+}
+/* Variante del hero principal (Reparación especializada LG) */
+.hero.hero-lg{ min-height: 72vh; }
+.hero.hero-lg .hero-bg{
+  /* Reemplaza por tu imagen de call center / atención */
+  background-image: url("img/hero-reparacion-lg.jpg");
+}
+.hero-title{
+  margin:0 0 .85rem;
+  font-size: clamp(2.1rem, 9vw, 4.2rem);
+  line-height: 1.0;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.hero-text{
+  margin: 0 auto 1.4rem;
+  max-width: 62ch;
+  opacity: .92;
+}
+
+ .hero-actions{
+  display:flex;
+  gap:.9rem;
+  justify-content:center;
+  flex-wrap:wrap;
+ }
+
+/* Hero principal: Reparación especializada LG */
+.hero-lg .hero-bg{
+  /* Reemplaza por tu imagen principal */
+  background-image: url("img/hero-reparacion-lg.jpg");
+}
+.hero-lg .hero-title{
+  text-transform:none;
+  letter-spacing:-0.02em;
+}
+
+/* =========================
+   Footer
+========================= */
+.footer{
+  border-top: 1px solid rgba(11,18,32,.08);
+  padding: 1.5rem 0 5rem; /* espacio para wa */
+}
+.footer-inner{
+  color: rgba(11,18,32,.65);
+}
+
+/* =========================
+   WhatsApp floating
+========================= */
+.wa-float{
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display:flex;
+  align-items:center;
+  gap:.55rem;
+  padding: .85rem 1rem;
+  border-radius: 999px;
+  background:#25D366;
+  color:#fff;
+  font-weight:800;
+  box-shadow: 0 14px 28px rgba(0,0,0,.22);
+  z-index:70;
+}
+.wa-dot{
+  width: 10px; height: 10px;
+  border-radius:999px;
+  background:#fff;
+}
+.wa-label{ font-size:.95rem; }
+
+/* =========================
+   Responsive
+========================= */
+@media (max-width: 899px){
+  .nav-toggle{ display:inline-flex; align-items:center; justify-content:center; }
+
+  .nav{
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: min(320px, 86vw);
+    background:#fff;
+    border-left:1px solid rgba(11,18,32,.10);
+    padding: 1rem;
+    flex-direction: column;
+    gap:.25rem;
+    transform: translateX(102%);
+    transition: transform .16s ease;
+    box-shadow: -16px 0 38px rgba(11,18,32,.12);
+    overflow:auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    z-index: 80;
+  }
+
+  .nav-close{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+    border-radius: .9rem;
+    border: 1px solid rgba(11,18,32,.14);
+    background:#fff;
+    font-weight:900;
+    position: sticky;
+    top: 0;
+    background: #fff;
+  }
+
+  .nav-link{
+    padding: .85rem .85rem;
+    border-radius: 1rem;
+  }
+
+  /* Estado abierto */
+  body.nav-open .nav{ transform: translateX(0); }
+
+  /* Backdrop real (clicable) */
+  body.nav-open .nav-backdrop{ display:block; }
+}
+
+/* Ajustes extra para pantallas pequeñas */
+@media (max-width: 480px){
+  .header-inner{ padding:.75rem 0; }
+  .brand-title{ font-size:.95rem; }
+  .hero-inner{ padding: 3rem 0; }
+  .hero{ min-height: 60vh; }
+  .hero.hero-lg{ min-height: 64vh; }
+  .hero-actions{ width:100%; }
+  .hero-actions .btn{ width: 100%; }
+  .wa-label{ display:none; }
+  .wa-float{ padding:.85rem .95rem; }
+}
+
+@media (min-width: 900px){
+  .split{
+    grid-template-columns: 1fr 1.05fr;
+    gap: 2.2rem;
+  }
+  .split-media img{
+    height: 100%;
+    max-height: none;
+  }
+  .split-content{ padding: 1.8rem; }
+  .mini-grid{
+    grid-template-columns: 1fr 1fr;
+    gap: 1.35rem 1.8rem;
+  }
+  .cards{
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.4rem;
+  }
+}
+
